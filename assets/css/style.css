@@ -1,0 +1,56 @@
+:root{
+    --primary-color: #47618c;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    background-color: #f1f3f4;
+}
+
+header{
+    width: 100%;
+    background-color: var(--primary-color);
+}
+nav{
+    display: flex;
+}
+#icon-barras{
+    background-color: transparent;
+    border: none;
+}
+button img{
+    width: 50px;
+}
+.group-btn button{
+    border: 0px;
+    border-radius: 5px;
+
+    
+}
+
+#limpar{
+    background-color: #eea236;
+    color: white;
+    
+
+}
+#add{
+    background-color: #5db85b;
+    color: white;
+}
+
+#box{
+    background-color: #ffffff;
+    width: 100%;
+    padding: 0 2%;
+}
+.table{
+    border: #b9b7b7;
+}
+footer{
+    width: 100%;
+    background-color: var(--primary-color);
+    position: fixed;
+    bottom: 0;
+}
