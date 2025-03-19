@@ -6,6 +6,7 @@ body{
     margin: 0;
     padding: 0;
     background-color: #f1f3f4;
+    padding-bottom: 110px;
 }
 
 header{
@@ -53,4 +54,5 @@ footer{
     background-color: var(--primary-color);
     position: fixed;
     bottom: 0;
+    
 }

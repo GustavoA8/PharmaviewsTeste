@@ -1,4 +1,6 @@
 const tabela = document.getElementById("tabela-corpo")
+const form = document.querySelector("form");
+form.addEventListener("submit", limpar);
 console.log("Chamando js")
 
 function adicionarAcao(){
@@ -18,9 +20,10 @@ function adicionarAcao(){
     event.preventDefault();
     
 }
-function limpar(){
+function limpar(event){
     const input = document.querySelectorAll("input") 
     console.log(input)
+    
 
     input[0].value = "";
     input[1].value = "";
@@ -30,6 +33,8 @@ function limpar(){
     //     input[i].value = "";
         
     // }
-
+   
     event.preventDefault();
+
+    
 }

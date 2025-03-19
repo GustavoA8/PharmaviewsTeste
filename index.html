@@ -41,21 +41,21 @@
         <div id="box" class="container-fluid pt-3 pb-5">
             <form action="" >
                 <div class="row">
-                    <div class="col-xxl-3">
+                    <div class="col-xxl-3 col-sm-3">
                         <label for="acao" class="text-muted">Ação:</label>
                         <input type="text" class="form-control" placeholder="Insirir ação" name="acao">
                     </div>
-                    <div class="col-xxl-3">
+                    <div class="col-xxl-3 col-sm-3">
                         <label for="acao" class="text-muted">Data prevista:</label>
                         <input type="date" class="form-control" name="dataP">
                     </div>
-                    <div class="col-xxl-3">
+                    <div class="col-xxl-3 col-sm-3">
                         <label for="acao" class="text-muted">Investimento previsto:</label>
                         <input type="number" class="form-control" placeholder="0,00" name="investimentoP">
                     </div>
-                    <div class="col-xxl-3">
+                    <div class="col-xxl-3 col-sm-3">
                         <div class="group-btn text-center mt-4">
-                            <button class="col-xxl-5 py-1" id="limpar" onclick="limpar()">Limpar</button>
+                            <button type="submit" class="col-xxl-5 col-sm-5 py-1" id="limpar" onclick="limpar(event)">Limpar</button>
                             <button class="col-xxl-5 py-1" id="add" onclick="adicionarAcao()">Adicionar</button>
                         </div>
                     </div>
