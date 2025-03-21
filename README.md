@@ -76,8 +76,8 @@ CREATE TABLE IF NOT EXISTS acao
 
 ## Autor
 
-Este projeto foi desenvolvido por Gustavo Araujo(https://github.com/GustavoA8).
+Este projeto foi desenvolvido por <a href="https://github.com/GustavoA8"Gustavo Araujo</a>.
 
 ## Licença
 
-Este projeto está licenciado sob a [Licença MIT](https://opensource.org/licenses/MIT).
+Este projeto está licenciado sob a <a href="https://opensource.org/licenses/MIT">Licença MIT</a>
