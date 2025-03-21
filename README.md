@@ -10,9 +10,8 @@ A solução visa resolver o problema de gerenciamento de orçamento de marketing
 
 - **Frontend**:
   - **HTML5**: Estruturação da página e formulários.
-  - **CSS3** (com Bootstrap 4): Estilização e layout responsivo.
-  - **JavaScript** (com Fetch API): Interatividade e manipulação de dados no frontend.
-  - **jQuery** (opcional): Para simplificar algumas interações.
+  - **CSS3**: Estilização e layout responsivo.
+  - **JavaScript**: Interatividade e manipulação de dados no frontend.
   - **Bootstrap**: Framework para layout responsivo e componentes de interface.
 
 - **Backend**:
@@ -62,3 +61,21 @@ CREATE TABLE IF NOT EXISTS acao
     data_cadastro DATE,
     FOREIGN KEY (codigo_acao) REFERENCES tipo_acao (codigo_acao)
 );
+
+**Como Executar o Projeto:**
+1. Verifique se o PHP esta instalado na sua maquina.
+2. Instale o <a href="https://www.apachefriends.org/pt_br/download.html">XAMPP</a>.
+3. Clone o repositorio com ´git clone https://github.com/GustavoA8/PharmaviewsTeste.git´
+4. Coloque a pasta PharmaviewsTeste no seguinte local C:\xampp\htdocs (esse local foi criado quando você instalou o xampp).
+5. Inicie o XAMPP.
+6. Dentro do xampp de start no Apache e no MySQL.
+7. Abra o seu navegador e digite http://localhost/Pharmaviewsteste/index.php para acessar a página principal.
+8. Agora pode testar o projeto.
+
+## Autor
+
+Este projeto foi desenvolvido por [Gustavo Araujo](https://github.com/GustavoA8).
+
+## Licença
+
+Este projeto está licenciado sob a [Licença MIT](https://opensource.org/licenses/MIT).
