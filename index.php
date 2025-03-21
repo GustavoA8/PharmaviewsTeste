@@ -93,32 +93,45 @@ if ($result->num_rows > 0) {
                     </div>
                     <div class="col-xxl-3 col-sm-3">
                         <div class="group-btn text-center mt-4">
-                            <button type="button" class="col-xxl-5 col-sm-5 py-1" id="limpar" >Limpar</button>
-                            <button type="submit" class="col-xxl-5 py-1" id="add" name="adicionar">Adicionar</button>
+                            <button type="button" class="col-xxl-5 col-sm-5 py-1" id="limpar" ><img  src="img/icon-borracha.png" alt=""> Limpar</button>
+                            <button type="submit" class="col-xxl-5 col-sm-5 py-1" id="add" name="adicionar"><img class="mb-1" src="img/icon-add.png" alt="">Adicionar</button>
                         </div>
                     </div>
                 </div>
             </form>
-            <div class="table-responsive-sm">
+            <div class="table-responsive-sm row">
                 <table class="table table-hover table-bordered table-sm mt-4 ">
                     <thead>
                         <tr>
-                            <th>Ação</th>
-                            <th>Data prevista</th>
-                            <th>Investimento previsto</th>
-                            <th>Editar</th>
-                            <th>Excluir</th>
+                            <th class="col-sm-3">Ação</th>
+                            <th class="col-sm-3">Data prevista</th>
+                            <th class="col-sm-3">Investimento previsto</th>
+                            <th class="col-sm-2">Editar</th>
+                            <th class="col-sm-2">Excluir</th>
                         </tr>
                     </thead>
                     <tbody id="tabela-corpo">
                         <?php if (!empty($acoes)) : ?>
                             <?php foreach ($acoes as $acao) : ?>
                                 <tr class="table-active">
-                                    <td><?php echo $acao['nome_acao']; ?></td>
-                                    <td><?php echo $acao['data_prevista']; ?></td>
-                                    <td><?php echo number_format($acao['investimento'], 2, ',', '.'); ?></td>
-                                    <td><a href="editar.php?id=<?php echo $acao['id']; ?>">Editar</a></td>
-                                    <td><a href="deletar.php?id=<?php echo $acao['id']; ?>">Excluir</a></td>
+                                    <td class="col-sm-3"><?php echo $acao['nome_acao']; ?></td>
+                                    <td class="col-sm-3"><?php echo $acao['data_prevista']; ?></td>
+                                    <td class="col-sm-3"><?php echo number_format($acao['investimento'], 2, ',', '.'); ?></td>
+                                    <td class="text-center col-sm-2">
+    <button type="button" id="btn-editar" class="editar-btn" 
+            data-id="<?= $acao['id']; ?>" 
+            data-acao="<?php echo $acao['nome_acao']; ?>" 
+            data-acao-codigo="<?php echo $acao['codigo_acao']; ?>"  
+            data-data="<?= $acao['data_prevista']; ?>" 
+            data-investimento="<?= $acao['investimento']; ?>" 
+            data-bs-toggle="modal" data-bs-target="#myModal">
+        <img src="img/icon-editar2.png" alt="">
+    </button>
+</td>
+    </a>
+</td>
+                                    
+                                    <td class="text-center col-sm-2"><a href="deletar.php?id=<?php echo $acao['id']; ?>"><img id="excluir" src="img/icon-excluir.png" alt=""></a></td>
                                 </tr>
                             <?php endforeach; ?>
                         <?php else : ?>
@@ -136,6 +149,59 @@ if ($result->num_rows > 0) {
     </footer>
 
 </body>
+<div class="modal" id="myModal">
+  <div class="modal-dialog modal-xl ">
+    <div class="modal-content ">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Modal Heading</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+                <form action="editar.php" method="POST">
+                    <!-- ID oculto para envio -->
+                    <input disabled name="id" id="edit-id">
+
+                    <div class="row">
+                        <div class="col-xxl-3 col-sm-3">
+                            <label for="edit-acao" class="text-muted">Ação:</label>
+                            <select name="acao" id="edit-acao" class="form-select">
+    <?php foreach ($acoes_lista as $acao) : ?>
+        <option value="<?= $acao['codigo_acao']; ?>"><?= $acao['nome_acao']; ?></option>
+    <?php endforeach; ?>
+</select>
+
+                        </div>
+                        <div class="col-xxl-3 col-sm-3">
+                            <label for="edit-data" class="text-muted">Data prevista:</label>
+                            <input type="date" class="form-control" name="dataP" id="edit-data" required>
+                        </div>
+                        <div class="col-xxl-3 col-sm-3">
+                            <label for="edit-investimento" class="text-muted">Investimento previsto:</label>
+                            <input type="number" class="form-control" name="investimentoP" id="edit-investimento" step="0.01" required>
+                        </div>
+                        <div class="col-xxl-3 col-sm-3">
+                            <div class="group-btn text-center mt-4">
+                                <button type="submit" class="col-xxl-5 col-sm-5 py-1 btn btn-primary">
+                                    <img src="img/icon-borracha.png" alt=""> Editar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 <script src="assets/js/script.js"></script>
 </html>

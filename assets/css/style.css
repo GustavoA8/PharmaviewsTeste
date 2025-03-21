@@ -23,16 +23,36 @@ nav{
 button img{
     width: 50px;
 }
+#limpar img, #add img{
+    width: 12%;
+    filter: invert(100%);
+}
 .group-btn button{
     border: 0px;
     border-radius: 5px;
 
     
 }
+#tabela-corpo td a #excluir{
+    width: 18%;
+
+}
+#tabela-corpo td a #editar{
+    width: 15%;
+
+}
+.editar-btn{
+    border: none;
+    background-color: transparent;
+}
+#editar-btn {
+    border: none;
+    background-color: transparent;
+}    
 
 #limpar{
     background-color: #eea236;
-    color: white;
+    color: rgb(255, 255, 255);
     
 
 }
