@@ -72,6 +72,8 @@ CREATE TABLE IF NOT EXISTS acao
 7. Abra o seu navegador e digite http://localhost/Pharmaviewsteste/index.php para acessar a página principal.
 8. Agora pode testar o projeto.
 
+*Nota: não é necessario a criação da tabela ou do banco de dados o projeto cria automaticamente.
+
 ## Autor
 
 Este projeto foi desenvolvido por [Gustavo Araujo](https://github.com/GustavoA8).
