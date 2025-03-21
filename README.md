@@ -45,13 +45,15 @@ O banco de dados contém duas tabelas principais:
 
 ```sql
 -- Criação da tabela tipo_acao
-CREATE TABLE IF NOT EXISTS tipo_acao (
+CREATE TABLE IF NOT EXISTS tipo_acao
+(
     codigo_acao INT AUTO_INCREMENT PRIMARY KEY,
     nome_acao VARCHAR(100) NOT NULL
 );
 
 -- Criação da tabela acao
-CREATE TABLE IF NOT EXISTS acao (
+CREATE TABLE IF NOT EXISTS acao
+(
     id INT AUTO_INCREMENT PRIMARY KEY,
     codigo_acao INT,
     investimento DOUBLE,
@@ -59,26 +61,23 @@ CREATE TABLE IF NOT EXISTS acao (
     data_cadastro DATE,
     FOREIGN KEY (codigo_acao) REFERENCES tipo_acao (codigo_acao)
 );
-Como Executar o Projeto
-Verifique se o PHP está instalado na sua máquina.
-Instale o XAMPP.
-Clone o repositório com o comando:
-bash
-Copiar
-git clone https://github.com/GustavoA8/PharmaviewsTeste.git
-Coloque a pasta PharmaviewsTeste no seguinte diretório: C:\xampp\htdocs (este diretório é criado quando você instala o XAMPP).
-Inicie o XAMPP.
-No painel do XAMPP, inicie os módulos Apache e MySQL.
-Abra o seu navegador e digite:
-bash
-Copiar
-http://localhost/PharmaviewsTeste/index.php
-para acessar a página principal.
-Agora você pode testar o projeto!
-Nota: Não é necessário criar as tabelas ou o banco de dados manualmente, pois o projeto o faz automaticamente.
 
-Autor
-Este projeto foi desenvolvido por Gustavo Araujo.
+**Como Executar o Projeto:**
+1. Verifique se o PHP esta instalado na sua maquina.
+2. Instale o <a href="https://www.apachefriends.org/pt_br/download.html">XAMPP</a>.
+3. Clone o repositorio com ´git clone https://github.com/GustavoA8/PharmaviewsTeste.git´
+4. Coloque a pasta PharmaviewsTeste no seguinte local C:\xampp\htdocs (esse local foi criado quando você instalou o xampp).
+5. Inicie o XAMPP.
+6. Dentro do xampp de start no Apache e no MySQL.
+7. Abra o seu navegador e digite http://localhost/Pharmaviewsteste/index.php para acessar a página principal.
+8. Agora pode testar o projeto.
 
-Licença
-Este projeto está licenciado sob a Licença MIT.
+*Nota: não é necessario a criação da tabela ou do banco de dados o projeto cria automaticamente.
+
+## Autor
+
+Este projeto foi desenvolvido por [Gustavo Araujo](https://github.com/GustavoA8).
+
+## Licença
+
+Este projeto está licenciado sob a [Licença MIT](https://opensource.org/licenses/MIT).
