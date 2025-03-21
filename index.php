@@ -92,8 +92,8 @@ if ($result->num_rows > 0) {
                     </div>
                     <div class="col-xxl-3 col-sm-3">
                         <div class="group-btn text-center mt-4">
-                            <button type="button" class="col-xxl-5 col-sm-5 py-1" id="limpar" ><img  src="img/icon-borracha.png" alt=""> Limpar</button>
-                            <button type="submit" class="col-xxl-5 col-sm-5 py-1" id="add" name="adicionar"><img class="mb-1" src="img/icon-add.png" alt="">Adicionar</button>
+                            <button type="button" class="col-xxl-5 col-sm-5 col-5 py-1" id="limpar" ><img  src="img/icon-borracha.png" alt=""> Limpar</button>
+                            <button type="submit" class="col-xxl-5 col-sm-5 col-5 py-1" id="add" name="adicionar"><img class="mb-1" src="img/icon-add.png" alt="">Adicionar</button>
                         </div>
                     </div>
                 </div>

@@ -115,6 +115,7 @@ $conn->close();
                 </table>
             </div>
             <!-- Fim da Tabela Tipo de Ações -->
+             <div class="w-100 text-center"> <a href="index.php"><button type="button" class="btn btn-primary">Voltar</button></a></div>
         </div>
     </main>
     <footer>
