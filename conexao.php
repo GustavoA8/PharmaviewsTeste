@@ -8,7 +8,7 @@ $conn = new mysqli($hostname, $username, $password);
 if($conn->connect_errno){
     die ("Falha ao conectar: (" . $conn->connect_errno . ") " . $conn ->connect_error);
 }else{
-    Echo"Sucesso";
+    // Echo"Sucesso";
 }
 
 // Criar o banco de dados se nao existir e a tabela
@@ -16,7 +16,7 @@ if($conn->connect_errno){
 $dbname = "Pharmaviews";
 $sql =  "CREATE DATABASE IF NOT EXISTS $dbname";
 if ($conn->query($sql) === TRUE){
-    echo "Banco de dados verificado/criado com sucesso!<br>";
+    // echo "Banco de dados verificado/criado com sucesso!<br>";
 } else{
     die("Erro ao criar o banco: " . $conn->error);
 
@@ -33,23 +33,34 @@ $sql = "CREATE TABLE IF NOT EXISTS tipo_acao
 )";
 
 if ($conn->query($sql) === TRUE) {
-    echo "Tabela tipo_acao criada com sucesso!";
+    // echo "Tabela tipo_acao criada com sucesso!";
 } else {
     echo "Erro ao criar tabela tipo_acao: " . $conn->error;
 }
 
-$sql = "INSERT INTO tipo_acao (nome_acao) VALUES
+// Verifica se já existem dados na tabela tipo_acao antes de fazer o INSERT
+$sql = "SELECT COUNT(*) AS total FROM tipo_acao";
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+$total = $row['total'];
+
+// Se não houver dados, insira os dados
+if ($total == 0) {
+    $insert_sql = "INSERT INTO tipo_acao (nome_acao) VALUES
 ('Palestra'),
 ('Evento'),
 ('Apoio'),
 ('Grafico')
 ";
-
-if ($conn->query($sql) === TRUE) {
-    echo "Dados da tabela tipo_acao inseridos com sucesso!";
+    if ($conn->query($insert_sql) === TRUE) {
+        echo "Dados inseridos com sucesso na tabela tipo_acao.<br>";
+    } else {
+        echo "Erro ao inserir dados na tabela tipo_acao: " . $conn->error;
+    }
 } else {
-    echo "Erro ao inserir dados da tabela tipo_acao: " . $conn->error;
+    // echo "Dados já existem na tabela tipo_acao. Nenhuma inserção necessária.<br>";
 }
+
 
 
 //criando tabela acao
@@ -65,7 +76,7 @@ $sql = "CREATE TABLE IF NOT EXISTS acao
 )";
 
 if ($conn->query($sql) === TRUE) {
-    echo "Tabela acao criada com sucesso!";
+    // echo "Tabela acao criada com sucesso!";
 } else {
     echo "Erro ao criar tabela acao: " . $conn->error;
 }

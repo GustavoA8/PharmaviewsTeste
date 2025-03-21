@@ -2,6 +2,10 @@
 // Incluir a conexão
 include 'conexao.php';
 
+header("Cache-Control: no-cache, no-store, must-revalidate"); 
+header("Pragma: no-cache");
+header("Expires: 0");
+
 $sql_acoes = "SELECT codigo_acao, nome_acao FROM tipo_acao";
 $result_acoes = $conn->query($sql_acoes);
 
@@ -12,7 +16,7 @@ if ($result_acoes->num_rows > 0) {
         $acoes_lista[] = $row;
     }
 } else {
-    echo "Nenhuma ação cadastrada.";
+    // echo "Nenhuma ação cadastrada.";
 }
 
 // Consulta para pegar os dados da tabela 'acoes'
@@ -28,7 +32,7 @@ if ($result->num_rows > 0) {
         $acoes[] = $row;
     }
 } else {
-    echo "Nenhuma ação cadastrada.";
+    // echo "Nenhuma ação cadastrada.";
 }
 
 ?>
@@ -73,7 +77,7 @@ if ($result->num_rows > 0) {
     <main>
         <h2 class="display-6 ms-5 mt-3">Gestão de Verbas</h2>
         <div id="box" class="container-fluid pt-3 pb-5">
-            <form action="cadastrar.php" method="POST" >
+        <form action="cadastrar.php" id="form-modal" method="POST" >
                 <div class="row">
                     <div class="col-xxl-3 col-sm-3">
                         <label for="acao" class="text-muted">Ação:</label>
@@ -118,18 +122,12 @@ if ($result->num_rows > 0) {
                                     <td class="col-sm-3"><?php echo $acao['data_prevista']; ?></td>
                                     <td class="col-sm-3"><?php echo number_format($acao['investimento'], 2, ',', '.'); ?></td>
                                     <td class="text-center col-sm-2">
-    <button type="button" id="btn-editar" class="editar-btn" 
-            data-id="<?= $acao['id']; ?>" 
-            data-acao="<?php echo $acao['nome_acao']; ?>" 
-            data-acao-codigo="<?php echo $acao['codigo_acao']; ?>"  
-            data-data="<?= $acao['data_prevista']; ?>" 
-            data-investimento="<?= $acao['investimento']; ?>" 
-            data-bs-toggle="modal" data-bs-target="#myModal">
+    <button type="button" class="editar-btn"
+        data-id="<?= htmlspecialchars($acao['id']); ?>"  
+        data-bs-toggle="modal" data-bs-target="#myModal">
         <img src="img/icon-editar2.png" alt="">
     </button>
-</td>
-    </a>
-</td>
+</td>                   
                                     
                                     <td class="text-center col-sm-2"><a href="deletar.php?id=<?php echo $acao['id']; ?>"><img id="excluir" src="img/icon-excluir.png" alt=""></a></td>
                                 </tr>
@@ -149,60 +147,62 @@ if ($result->num_rows > 0) {
     </footer>
 
 </body>
+<!-- Modal -->
 <div class="modal" id="myModal">
-  <div class="modal-dialog modal-xl ">
-    <div class="modal-content ">
+    <div class="modal-dialog modal-xl ">
+        <div class="modal-content">
 
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">Modal Heading</h4>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-
-      <!-- Modal body -->
-      <div class="modal-body">
-                <form action="editar.php" method="POST">
-                    <!-- ID oculto para envio -->
-                    <input disabled name="id" id="edit-id">
-
-                    <div class="row">
-                        <div class="col-xxl-3 col-sm-3">
-                            <label for="edit-acao" class="text-muted">Ação:</label>
-                            <select name="acao" id="edit-acao" class="form-select">
-    <?php foreach ($acoes_lista as $acao) : ?>
-        <option value="<?= $acao['codigo_acao']; ?>"><?= $acao['nome_acao']; ?></option>
-    <?php endforeach; ?>
-</select>
-
-                        </div>
-                        <div class="col-xxl-3 col-sm-3">
-                            <label for="edit-data" class="text-muted">Data prevista:</label>
-                            <input type="date" class="form-control" name="dataP" id="edit-data" required>
-                        </div>
-                        <div class="col-xxl-3 col-sm-3">
-                            <label for="edit-investimento" class="text-muted">Investimento previsto:</label>
-                            <input type="number" class="form-control" name="investimentoP" id="edit-investimento" step="0.01" required>
-                        </div>
-                        <div class="col-xxl-3 col-sm-3">
-                            <div class="group-btn text-center mt-4">
-                                <button type="submit" class="col-xxl-5 col-sm-5 py-1 btn btn-primary">
-                                    <img src="img/icon-borracha.png" alt=""> Editar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Editar Ação</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-      </div>
+            <!-- Modal body -->
+<div class="modal-body">
+    <form action="editar.php" method="POST">
+        <!-- ID oculto para envio -->
+        <input type="text" name="id" id="edit-id" readonly class="form-control">
 
-    </div>
-  </div>
+        <div class="row">
+        <div class="col-xxl-3 col-sm-3">
+    <label for="edit-acao" class="text-muted">Ação:</label>
+    <select name="codigo_acao" id="edit-acao" class="form-select">
+        <!-- Loop para preencher as opções -->
+        <?php foreach ($acoes_lista as $acao) : ?>
+            <option value="<?php echo $acao['codigo_acao']; ?>">
+                <?php echo $acao['nome_acao']; ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+</div>
+            <div class="col-xxl-3 col-sm-3">
+                <label for="edit-data" class="text-muted">Data prevista:</label>
+                <input type="date" class="form-control" name="data_prevista" id="edit-data" required>
+            </div>
+            <div class="col-xxl-3 col-sm-3">
+                <label for="edit-investimento" class="text-muted">Investimento previsto:</label>
+                <input type="number" class="form-control" name="investimento" id="edit-investimento" step="0.01" required>
+            </div>
+            <div class="col-xxl-3 col-sm-3">
+                <div class="group-btn text-center mt-4">
+                    <button type="submit" class="col-xxl-5 col-sm-5 py-1 btn btn-primary">
+                        Editar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
 
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+            </div>
+
+        </div>
+    </div>
+</div>
 <script src="assets/js/script.js"></script>
 </html>
 <?php

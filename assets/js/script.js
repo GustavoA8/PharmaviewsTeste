@@ -1,5 +1,5 @@
 const tabela = document.getElementById("tabela-corpo")
-const form = document.querySelector("form");
+const form = document.getElementById("form-modal");
 document.getElementById("limpar").addEventListener("click", limpar);
 console.log("Chamando js")
 
@@ -34,52 +34,76 @@ function limpar(){
     //     input[i].value = "";
         
     event.defaultPrevented();
-   
+
     
 
     
 }
 document.addEventListener("DOMContentLoaded", function () {
-    const modal = document.getElementById("myModal");
-
-    // Para cada botão de editar
+    // Quando o botão de edição for clicado
     document.querySelectorAll(".editar-btn").forEach(button => {
-        // Adicionar um evento de clique
-        button.addEventListener("click", function (event) {
-            event.preventDefault(); // Impede o comportamento padrão de navegação
+        button.addEventListener("click", function () {
+            let acaoId = this.getAttribute("data-id"); // Pega o ID da ação
+            document.getElementById("edit-id").value = acaoId;
+            preencherModal(acaoId);
+        });
+    });
 
-            // Capturar os dados associados ao botão
-            let id = this.dataset.id;  // ID da ação
-            let acao = this.dataset.acao;  // Nome da ação (para debug)
-            let acaoCodigo = this.dataset.acaoCodigo;  // O código da ação, que é o valor da opção na combobox
-            let data = this.dataset.data;  // Data prevista
-            let investimento = this.dataset.investimento;
+    // Adiciona o evento de submit ao formulário do modal
+    const form = document.getElementById("#form-modal");
+    form.addEventListener("submit", function (event) {
+        event.preventDefault(); // Impede o envio padrão do formulário
 
-            // Exibir os dados para depuração
-            console.log("ID:", id, "Ação:", acao, "Código da Ação:", acaoCodigo, "Data:", data, "Investimento:", investimento);
+        // Pega os dados do formulário
+        const id = document.getElementById("edit-id").value;
+        const codigo_acao = document.getElementById("edit-acao").value;
+        const data_prevista = document.getElementById("edit-data").value;
+        const investimento = document.getElementById("edit-investimento").value;
 
-            // Preencher os campos do modal com os dados
-            document.getElementById("edit-id").value = id;  // O ID será usado para identificar a ação no banco
-            document.getElementById("edit-investimento").value = investimento;  // Investimento
+        console.log("Enviando dados:", id, codigo_acao, data_prevista, investimento);
 
-            // Preencher o campo de ação no modal (combobox)
-            let editAcaoSelect = document.getElementById("edit-acao");
-
-            // Agora, percorremos as opções da combobox e comparamos com o código da ação
-            for (let i = 0; i < editAcaoSelect.options.length; i++) {
-                if (editAcaoSelect.options[i].value === acaoCodigo) {
-                    editAcaoSelect.selectedIndex = i;  // Se encontrado, seleciona
-                    break;  // Interrompe o loop após encontrar a opção
-                }
+        // Fazendo o envio via AJAX para o editar.php
+        fetch('editar.php', {
+            method: 'POST',
+            body: new URLSearchParams({
+                'id': id,
+                'codigo_acao': codigo_acao,
+                'data_prevista': data_prevista,
+                'investimento': investimento
+            }),
+        })
+        .then(response => response.text()) // Espera a resposta em texto
+        .then(data => {
+            alert(data); // Exibe a resposta de sucesso ou erro
+            if (data.includes("Atualização bem-sucedida")) {
+                // Se a atualização foi bem-sucedida, você pode fechar o modal ou atualizar a tabela
+                $('#editModal').modal('hide'); // Fechar o modal automaticamente
+                location.reload(); // Recarrega a página para atualizar os dados na tabela
             }
-
-            // Preencher o campo de data no modal (input de data)
-            let editDataInput = document.getElementById("edit-data");
-            editDataInput.value = data;  // Preenche com a data correta
+        })
+        .catch(error => {
+            console.error("Erro ao atualizar a ação:", error);
         });
     });
 });
-    
 
+// Função que preenche o modal com os dados da ação
+function preencherModal(acaoId) {
+    console.log("Abrindo o modal para a ação com ID: " + acaoId);
 
-
+    fetch('preencher_modal.php?id=' + acaoId)
+        .then(response => response.json())
+        .then(data => {
+            if (data) {
+                document.getElementById("edit-id").value = data.id;
+                document.getElementById("edit-acao").value = data.codigo_acao;
+                document.getElementById("edit-data").value = data.data_prevista;
+                document.getElementById("edit-investimento").value = data.investimento;
+            } else {
+                alert("Erro: Dados da ação não encontrados.");
+            }
+        })
+        .catch(error => {
+            console.error("Erro ao buscar dados:", error);
+        });
+}
