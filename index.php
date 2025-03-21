@@ -2,10 +2,6 @@
 // Incluir a conexão
 include 'conexao.php';
 
-header("Cache-Control: no-cache, no-store, must-revalidate"); 
-header("Pragma: no-cache");
-header("Expires: 0");
-
 $sql_acoes = "SELECT codigo_acao, nome_acao FROM tipo_acao";
 $result_acoes = $conn->query($sql_acoes);
 
@@ -54,13 +50,12 @@ if ($result->num_rows > 0) {
             <!-- Offcanvas Sidebar -->
             <div class="offcanvas offcanvas-start" id="demo">
                 <div class="offcanvas-header">
-                    <h1 class="offcanvas-title">Heading</h1>
+                    <h1 class="offcanvas-title">PharmaViews</h1>
                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
                 </div>
                 <div class="offcanvas-body">
-                    <p>Some text lorem ipsum.</p>
-                    <p>Some text lorem ipsum.</p>
-                    <button class="btn btn-secondary" type="button">A Button</button>
+                    <p>Autor: <a href="https://github.com/GustavoA8">Gustavo Araujo</a></p>
+                    <a href="vizualizar.php"><button class="btn btn-secondary" type="button">Vizualizar o Banco de Dados</button></a>
                 </div>
             </div>
 
@@ -93,7 +88,7 @@ if ($result->num_rows > 0) {
                     </div>
                     <div class="col-xxl-3 col-sm-3">
                         <label for="acao" class="text-muted">Investimento previsto:</label>
-                        <input type="number" class="form-control" placeholder="0,00" step="0.01" name="investimentoP" required>
+                        <input type="number" class="form-control" placeholder="R$ 0,00" step="0.01" name="investimentoP" required>
                     </div>
                     <div class="col-xxl-3 col-sm-3">
                         <div class="group-btn text-center mt-4">
@@ -120,7 +115,7 @@ if ($result->num_rows > 0) {
                                 <tr class="table-active">
                                     <td class="col-sm-3"><?php echo $acao['nome_acao']; ?></td>
                                     <td class="col-sm-3"><?php echo $acao['data_prevista']; ?></td>
-                                    <td class="col-sm-3"><?php echo number_format($acao['investimento'], 2, ',', '.'); ?></td>
+                                    <td class="col-sm-3"><span>R$ </span><?php echo number_format($acao['investimento'], 2, ',', '.'); ?></td>
                                     <td class="text-center col-sm-2">
     <button type="button" class="editar-btn"
         data-id="<?= htmlspecialchars($acao['id']); ?>"  
